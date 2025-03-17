@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My CutiePie</title>
+    <link rel="stylesheet" href="./dinoo.css">
+    <style>
+        /* Initial state of the button is hidden */
+        #openButton {
+            display: none;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            position: fixed; /* Fixes the button to the viewport */
+            bottom: 20px; /* Positions it 20px from the bottom */
+            left: 50%; /* Centers it horizontally */
+            transform: translateX(-50%); /* Centers it precisely by shifting it 50% of its width */
+            margin-top: 60px;
+        }
+
+        #openButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="imgBox">
+            <div class="bark"></div>
+            <img src="https://image.ibb.co/fYzTrb/lastofus.jpg" alt="Image">
+        </div>
+        <div class="details">
+            <h4 class="color1">Happy Birthday, My Love!</h4>
+            <h4 class="color2 margin">(You're my everything)</h4>
+            <p>To the love of my life,</p>
+            <p>Let's see.. .</p>
+            <p>Every moment with you feels like</p>
+            <p>a dream come true.</p>
+            <p>I'm beyond lucky to call you mine.</p>
+            <p>Seriously, how do you do it all?</p>
+            <p>You manage to be the most amazing</p>
+            <p>partner and the best gf every single year.</p>
+            <p>Is there anything you can't do? 😊</p>
+            <p class="text-right">I love you!</p>
+            <p class="text-right">♥Zek</p>
+        </div>
+    </div>
+
+    <!-- Button to be displayed after 10 seconds -->
+    <button id="openButton" onclick="window.location.href='loading.html';">Click here when ure done reading!</button>
+
+    <script>
+        // Function to make the button appear after 10 seconds
+        setTimeout(function() {
+            document.getElementById('openButton').style.display = 'block';
+        }, 5000); // 10000 milliseconds = 10 seconds
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+@import url(https://fonts.googleapis.com/css?family=Kaushan+Script);
+
+body {
+  background-color: #373737;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.gift {
+  width: 200px;
+  height: 200px;
+}
+
+.fourleaf {
+  position: absolute;
+  z-index: 1;
+  transition: transform 300ms ease-in-out;
+  transform: translateY(10px) scale(0.65);
+}
+
+.gift {
+  z-index: 2;
+}
+
+.gift-top {
+  transition: transform 300ms ease-in-out;
+  transform: rotate(-20deg) translate(-115px, 105px) scale(1);
+}
+ 
+.gift {
+  transition: transform 300ms ease-in-out;
+  transform: scale(1);
+}
+
+.gift.is-open {
+  transform: scale(0.25);
+  transform-origin: center bottom;
+}
+
+
+.gift.is-open .gift-top,
+.gift:hover.is-open .gift-top {
+  transform: rotate(85deg) translate(-120px, -600px)
+}
+
+.gift:hover .gift-top {
+  transform: none;
+}
+
+.fourleaf.is-fade-in {
+  transform: scale(1) translateY(-80px);
+}
+
+.message {
+  opacity: 0;
+  transition: opacity, transform 300ms ease-in-out 150ms;
+  transform: scale(0);
+  position: absolute;
+  padding: 10px;
+  font-family: "Kaushan Script", monospace;
+  color: #fff;
+}  
+
+.message.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
