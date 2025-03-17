@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WE BOTH LOVE THIS SONG!</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./musicc.css">
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <canvas id="c"></canvas> <!-- Canvas for background animation -->
+    <div class="player">
+        <div class="cover">
+            <img src="https://i1.sndcdn.com/artworks-000057198207-uthgyd-t500x500.jpg" alt="">
+        </div>
+        <div class="info">
+            <div class="title">Unintended</div>
+            <div class="singer">Muse</div>
+        </div>
+        <div class="volume-box">
+            <span class="volume-down"><i class="material-icons">remove</i></span>
+            <input type="range" class="volume-range" step="1" value="80" min="0" max="100"
+                oninput="music.volume = this.value/100">
+            <span class="volume-up"><i class="material-icons">add</i></span>
+        </div>
+        <div class="btn-box">
+            <i class="material-icons repeat" onclick="handleRepeat()">repeat</i>
+            <i class="material-icons favorite active" onclick="handleFavorite()">favorite</i>
+            <i class="material-icons volume" onclick="handleVolume()">volume_up</i>
+        </div>
+        <div class="music-box">
+            <input type="range" step="1" class="seekbar" value="0" min="0" max="100" oninput="handleSeekBar()">
+            <audio class="music-element">
+                <source src="muse.mp3" type="audio/mp3">
+            </audio>
+            <span class="current-time">0:0</span><span class="duration">3:56</span>
+            <span class="play" onclick="handlePlay()">
+                <i class="material-icons">play_arrow</i>
+            </span>
+        </div>
+    </div>
+
+    <script>
+      // Canvas animation script
+      window.onload = function() {
+          var lyric = "Unitended i couldn't stop smiling, couldn't wait another moment, couldn't dream another love day without you near me. all of the sparkles that I love love love Япростохочу,чтобымыбылирядом. love had неигнорируйменя love known in my life were gathered Яоченьзабочусьотебе around me the moment you appeared. love to have you in my world was love all i неигнорируйменя ever wished for, but now with you, I'm a heart forever DARINA HappyBirthday dancing. can't help but feel that i’ve been blessed by your magic, DARINA no way in heaven that i can ever fully grasp this. i wasn't dreaming неигнорируйменя when they lyubyutebyadarina told Яоченьзабочусьотебе me you were here, i was wide awake and feeling that Яоченьзабочусьотебе .my heart was so clear.  i thought i was lost? Tisha DARINA Mason Mila Milashkanow i'm floating cutie cloud every single love day, it's like a storybook with the happiest of endings, every page turns bright and there's no pretending. this little fairy tale seems to glow so well, there's a knight in love shining Tisha Mason Mila Milashka armor who has broken every spell. i know you planned this, you brought the stars to light, loveyoudarina in the middle HappyBirthday of this wonder, i'm the one you chose to cutiepie hold so tight.  like cotton candy fills my head with dreams loveyoudarina finds me always closer to the  cutie joy loveyou laughter that has come to take the place of blue. i know you're glowing with a light so pure loveyou true, you feel like sunshine in a world cutie that's lyubyutebyadarina full of you. wish i Tisha Mason Mila Milashka could cutie hug you cutiepie if  Яоченьзабочусьотебе only for a minute, make you understand love DARINA the reasons why you're in it. i wanna tell you that you're all that ever mattered, want you to love know that for eternity i'm flattered.  неигнорируйменя i tried so hard just to keep you close to me, and in a garden of affection, Яоченьзабочусьотебе i’ve set you free. i Unitended always hoped that i would see you here with me, i was sure that we would sparkle when we made it to the sea. and all the times i swore lyubyutebyadarina that it would be okay, now i'm everything you dreamed of and you're here неигнорируйменя DARINA to stay. this bedtime story ends with love forever after, the HappyBirthday pages are Яоченьзабочусьотебе gold and there's no Unitended need for a final chapter. Tisha Mason Mila Milashka i didn't have a choice, i did what i had to do, i made a wish and then  DARINAthe stars aligned for you. love i know you've неигнорируйменя lived a dream, i’ve brought you so much lyubyutebyadarina light, but baby HappyBirthday please don't ever fade, i don't want you to lose your glow so bright.  like cotton candy fills my head with dreams Яоченьзабочусьотебе and finds me HappyBirthday love always closer to the joy and laughter that has come to take the place of DARINA blue. you're  неигнорируйменя not the only one who Яоченьзабочусьотебе needed me, i thought you knew, you were the one i needed and you found me as i always HappyBirthday hoped you’d do. would i change it if i DARINA could? it doesn't неигнорируйменя matter how the stars align now, every dream just discloses it's your light that's  like roses. and no matter what i do, nothing ever takes the place of you.  like cotton Tisha Mason Mila Milashka candy fills my head with dreams and finds me always closer to the joy and laughter that has come to take the love place of blue.";
+            var words = {};
+            var words_attr = [];
+            string_handle(lyric);
+
+            var canvas = document.getElementById('c');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            if (canvas.getContext) {
+                var c = canvas.getContext('2d'),
+                    w = canvas.width,
+                    h = canvas.height;
+
+                c.strokeStyle = 'red';
+                c.fillStyle = 'white';
+                c.lineWidth = 5;
+
+                // constructor
+                Word = function(key) {
+                    this.text = key;
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.font = words[key] * 10 + 'px arial';
+                    this.speed = (words[key]);
+                }
+                for (key in words) {
+                    words_attr.push(new Word(key));
+                }
+
+                function animation() {
+                    for (var i = 0; i < words_attr.length; i++) {
+                        c.font = words_attr[i].font;
+                        c.fillText(words_attr[i].text, words_attr[i].x, words_attr[i].y);
+                        words_attr[i].width = c.measureText(words_attr[i].text).width;
+                        c.stroke();
+                    }
+                    move();
+                }
+
+                function move() {
+                    for (var i = 0; i < words_attr.length; i++) {
+                        if (words_attr[i].x > w) {
+                            words_attr[i].x = -words_attr[i].width;
+                            words_attr[i].y = Math.random() * h;
+                        } else {
+                            words_attr[i].x += words_attr[i].speed;
+                        }
+                    }
+                }
+
+                setInterval(function() {
+                    c.clearRect(0, 0, w, h);
+                    animation();
+                }, 24);
+            }
+
+            function string_handle(str) {
+                var split_str = str.split(" ");
+                var word_array = [];
+                var word_count = [];
+                for (var i = 0; i < split_str.length; i++) {
+                    check = true;
+                    for (var j = 0; j <= word_array.length; j++) {
+                        if (split_str[i] == word_array[j]) {
+                            word_count[j]++;
+                            check = false;
+                            break;
+                        }
+                    }
+                    if (check) {
+                        word_array.push(split_str[i]);
+                        word_count.push(1);
+                    }
+                }
+                for (var i = 0; i < word_array.length; i++) {
+                    words[word_array[i]] = word_count[i];
+                }
+                return words;
+            }
+        };
+
+        // Music player script
+        var music = document.querySelector('.music-element');
+        var playBtn = document.querySelector('.play');
+        var seekbar = document.querySelector('.seekbar');
+        var currentTime = document.querySelector('.current-time');
+        var duration = document.querySelector('.duration');
+
+        function handlePlay() {
+            if (music.paused) {
+                music.play();
+                playBtn.className = 'pause';
+                playBtn.innerHTML = '<i class="material-icons">pause</i>';
+            } else {
+                music.pause();
+                playBtn.className = 'play';
+                playBtn.innerHTML = '<i class="material-icons">play_arrow</i>';
+            }
+            music.addEventListener('ended', function() {
+                playBtn.className = 'play';
+                playBtn.innerHTML = '<i class="material-icons">play_arrow</i>';
+                music.currentTime = 0;
+            });
+        }
+
+        music.onloadeddata = function() {
+            seekbar.max = music.duration;
+            var ds = parseInt(music.duration % 60);
+            var dm = parseInt((music.duration / 60) % 60);
+            duration.innerHTML = dm + ':' + ds;
+        };
+        music.ontimeupdate = function() { seekbar.value = music.currentTime; };
+        handleSeekBar = function() { music.currentTime = seekbar.value; };
+        music.addEventListener('timeupdate', function() {
+            var cs = parseInt(music.currentTime % 60);
+            var cm = parseInt((music.currentTime / 60) % 60);
+            currentTime.innerHTML = cm + ':' + cs;
+        }, false);
+
+        // like
+        var favIcon = document.querySelector('.favorite');
+        function handleFavorite() {
+            favIcon.classList.toggle('active');
+        }
+
+        // repeat
+        var repIcon = document.querySelector('.repeat');
+        function handleRepeat() {
+            if (music.loop == true) {
+                music.loop = false;
+                repIcon.classList.toggle('active');
+            } else {
+                music.loop = true;
+                repIcon.classList.toggle('active');
+            }
+        }
+
+        // volume
+        var volIcon = document.querySelector('.volume');
+        var volBox = document.querySelector('.volume-box');
+        var volumeRange = document.querySelector('.volume-range');
+        var volumeDown = document.querySelector('.volume-down');
+        var volumeUp = document.querySelector('.volume-up');
+
+        function handleVolume() {
+            volIcon.classList.toggle('active');
+            volBox.classList.toggle('active');
+        }
+
+        volumeDown.addEventListener('click', handleVolumeDown);
+        volumeUp.addEventListener('click', handleVolumeUp);
+
+        function handleVolumeDown() {
+            volumeRange.value = Number(volumeRange.value) - 20;
+            music.volume = volumeRange.value / 100;
+        }
+        function handleVolumeUp() {
+            volumeRange.value = Number(volumeRange.value) + 20;
+            music.volume = volumeRange.value / 100;
+        }
+    </script>
+</body>
+</html>
